@@ -89,6 +89,33 @@ describe("Cortex", function() {
               expect(cortex.get(i).getValue()).toBe(newValue[i]);
             }
           });
+
+          it("runs callback and provieds the old and new value", function() {
+            var value = [1, 2, 3],
+                newValue = [1, 2, 4],
+                reportedNewValue,
+                reportedOldValue,
+                cortex = new Cortex(value, (function(c, oldValue, newValue) {
+                  reportedOldValue = oldValue;
+                  reportedNewValue = newValue;
+                }));
+            cortex.update(newValue, []);
+
+            expect(reportedOldValue).toBe(value);
+            expect(reportedNewValue).toBe(newValue);
+          });
+
+
+          it("runs callback and provides the changed path", function() {
+            var value = [1, 2, 3],
+                reportedNewValue,
+                cortex = new Cortex(value, (function(c, oldValue, newValue, path) {
+                  reportedPath = path;
+                }));
+            cortex.get(2).set(5);
+
+            expect(reportedPath[0]).toBe(2);
+          });
         });
 
         describe("when elements are object", function() {

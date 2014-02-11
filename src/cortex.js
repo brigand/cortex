@@ -28,14 +28,19 @@ Cortex = (function(_super) {
       forceUpdate = false;
     }
 
-    if(!forceUpdate && !this._shouldUpdate(newValue, path)) {
+    var oldValue = this.value;
+    for(var i=0, ii=path.length;i<ii;i++) {
+      oldValue = oldValue[path[i]];
+    }
+
+    if(!forceUpdate && !this._shouldUpdate(oldValue, newValue, path)) {
       return false;
     }
 
     this._setValue(newValue, path);
     this._wrap();
     if(this.callback) {
-      return this.callback(this);
+      return this.callback(this, oldValue, newValue, path);
     }
   };
 
@@ -60,11 +65,7 @@ Cortex = (function(_super) {
   };
 
   // Check whether newValue is different, if not then return false to bypass rewrap and running callback.
-  Cortex.prototype._shouldUpdate = function(newValue, path) {
-    var oldValue = this.value;
-    for(var i=0, ii=path.length;i<ii;i++) {
-      oldValue = oldValue[path[i]];
-    }
+  Cortex.prototype._shouldUpdate = function(oldValue, newValue, path) {
     return this._isDifferent(oldValue, newValue);
   };
 

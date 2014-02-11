@@ -122,6 +122,33 @@ new Cortex(data, function() {
     `delete(key)`                  | Deletes the specified key and value pair
 
 
+## Advanced
+
+There may be situations where you need to know exactly what changed.
+This could be useful if you're saving data somewhere, and only
+want to save what's changed.  This is espescially important 
+when saving to a remote server, so that you're not sending
+back all of your data every time something changes.
+
+A simple example of this is storing to localStorage when
+the user selects a different language.  `path` is the object path;
+of `settings.language` is changed, path will be `['settings', 'language']`.
+
+
+```javascript
+var appData = {
+  settings: {
+    language: localStorage.language || "en"
+  }
+}
+
+var appCortex = new Cortex(appData, function(updatedOrder, oldValue, newValue, path) {
+  if (path.join("/") === "settings/language") {
+    localStorage.preferedLanguage = newValue;
+  }
+});
+```
+
 # Buidling Cortex
 To build Cortex:
 ```console
