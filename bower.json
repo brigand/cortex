@@ -5,6 +5,6 @@
   "author": "Quan Nguyen, Frankie Bagnardi",
   "license": "MIT",
   "main": "build/cortex.js",
-  "ignore": "test/*"
+  "ignore": ["test/*"]
 }
 
