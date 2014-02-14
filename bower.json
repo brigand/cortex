@@ -4,7 +4,7 @@
   "description": "A data managment solution for React",
   "author": "Quan Nguyen, Frankie Bagnardi",
   "license": "MIT",
-  "main": "build/cortex.js"
+  "main": "build/cortex.js",
   "ignore": "test/*"
 }
 
