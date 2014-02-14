@@ -1,0 +1,10 @@
+{
+  "name": "cortex-js",
+  "version": "0.3.0",
+  "description": "A data managment solution for React",
+  "author": "Quan Nguyen, Frankie Bagnardi",
+  "license": "MIT",
+  "main": "build/cortex.js"
+  "ignore": "test/*"
+}
+
